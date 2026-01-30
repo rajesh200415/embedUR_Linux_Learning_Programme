@@ -1,0 +1,229 @@
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ cat assignment_1.txt 
+
+1.)Create a file and add executable permission to all users
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ touch sample
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ chmod a+x sample
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ls-l sample
+ls-l: command not found
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ls -l sample
+-rwxrwxr-x 1 rajesh rajesh 0 Jan 30 21:38 sample
+
+
+2.)Create a file and remove write permission for group user alone
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ touch sample_2
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ chmod g-w sample_2
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ls -l sample_2
+-rw-r--r-- 1 rajesh rajesh 0 Jan 30 21:40 sample_2
+
+
+3.)Create a file and add a soft link in a different directory
+
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ mkdir -p dir1/dir2
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ touch dir1/dir2/file3
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ln -s dir1/dir2/file3 dir1/file3_link
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ls -l dir1
+total 4
+drwxrwxr-x 2 rajesh rajesh 4096 Jan 30 21:42 dir2
+lrwxrwxrwx 1 rajesh rajesh   15 Jan 30 21:43 file3_link -> dir1/dir2/file3
+
+
+4.)Use ps command with options to display all active processes
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 21:22 ?        00:00:01 /sbin/init splash
+root           2       0  0 21:22 ?        00:00:00 [kthreadd]
+root           3       2  0 21:22 ?        00:00:00 [pool_workqueue_release]
+root           4       2  0 21:22 ?        00:00:00 [kworker/R-rcu_g]
+root           5       2  0 21:22 ?        00:00:00 [kworker/R-rcu_p]
+root           6       2  0 21:22 ?        00:00:00 [kworker/R-slub_]
+root           7       2  0 21:22 ?        00:00:00 [kworker/R-netns]
+root           9       2  0 21:22 ?        00:00:00 [kworker/0:1-events]
+root          12       2  0 21:22 ?        00:00:00 [kworker/R-mm_pe]
+root          13       2  0 21:22 ?        00:00:00 [rcu_tasks_kthread]
+root          14       2  0 21:22 ?        00:00:00 [rcu_tasks_rude_kthread]
+root          15       2  0 21:22 ?        00:00:00 [rcu_tasks_trace_kthread]
+root          16       2  0 21:22 ?        00:00:00 [ksoftirqd/0]
+root          17       2  0 21:22 ?        00:00:00 [rcu_preempt]
+root          18       2  0 21:22 ?        00:00:00 [migration/0]
+root          19       2  0 21:22 ?        00:00:00 [idle_inject/0]
+root          20       2  0 21:22 ?        00:00:00 [cpuhp/0]
+root          21       2  0 21:22 ?        00:00:00 [kdevtmpfs]
+root          22       2  0 21:22 ?        00:00:00 [kworker/R-inet_]
+root          23       2  0 21:22 ?        00:00:00 [kauditd]
+root          24       2  0 21:22 ?        00:00:00 [khungtaskd]
+root          25       2  0 21:22 ?        00:00:00 [kworker/u2:1-events_unbound
+root          26       2  0 21:22 ?        00:00:00 [oom_reaper]
+root          28       2  0 21:22 ?        00:00:00 [kworker/R-write]
+root          29       2  0 21:22 ?        00:00:00 [kcompactd0]
+root          30       2  0 21:22 ?        00:00:00 [ksmd]
+root          31       2  0 21:22 ?        00:00:00 [khugepaged]
+root          32       2  0 21:22 ?        00:00:00 [kworker/R-kinte]
+root          33       2  0 21:22 ?        00:00:00 [kworker/R-kbloc]
+root          34       2  0 21:22 ?        00:00:00 [kworker/R-blkcg]
+root          35       2  0 21:22 ?        00:00:00 [irq/9-acpi]
+root          36       2  0 21:22 ?        00:00:00 [kworker/R-tpm_d]
+root          37       2  0 21:22 ?        00:00:00 [kworker/R-ata_s]
+root          38       2  0 21:22 ?        00:00:00 [kworker/R-md]
+root          39       2  0 21:22 ?        00:00:00 [kworker/R-md_bi]
+root          40       2  0 21:22 ?        00:00:00 [kworker/R-edac-]
+root          41       2  0 21:22 ?        00:00:00 [kworker/R-devfr]
+root          42       2  0 21:22 ?        00:00:00 [watchdogd]
+root          43       2  0 21:22 ?        00:00:00 [kworker/0:1H-kblockd]
+root          44       2  0 21:22 ?        00:00:00 [kswapd0]
+root          45       2  0 21:22 ?        00:00:00 [ecryptfs-kthread]
+root          46       2  0 21:22 ?        00:00:00 [kworker/R-kthro]
+root          47       2  0 21:22 ?        00:00:00 [kworker/R-acpi_]
+root          48       2  0 21:22 ?        00:00:00 [scsi_eh_0]
+root          49       2  0 21:22 ?        00:00:00 [kworker/R-scsi_]
+root          50       2  0 21:22 ?        00:00:00 [scsi_eh_1]
+root          51       2  0 21:22 ?        00:00:00 [kworker/R-scsi_]
+root          54       2  0 21:22 ?        00:00:00 [kworker/R-mld]
+root          55       2  0 21:22 ?        00:00:00 [kworker/R-ipv6_]
+root          57       2  0 21:22 ?        00:00:01 [kworker/u2:5-events_unbound
+root          64       2  0 21:22 ?        00:00:00 [kworker/R-kstrp]
+root          66       2  0 21:22 ?        00:00:00 [kworker/u3:0-ttm]
+root          79       2  0 21:22 ?        00:00:00 [kworker/R-charg]
+root         118       2  0 21:22 ?        00:00:00 [scsi_eh_2]
+root         119       2  0 21:22 ?        00:00:00 [kworker/R-scsi_]
+root         121       2  0 21:22 ?        00:00:01 [kworker/0:2H-kblockd]
+root         142       2  0 21:22 ?        00:00:00 [jbd2/sda3-8]
+root         143       2  0 21:22 ?        00:00:00 [kworker/R-ext4-]
+root         182       1  0 21:22 ?        00:00:00 /lib/systemd/systemd-journal
+root         212       2  0 21:22 ?        00:00:00 [irq/18-vmwgfx]
+root         213       2  0 21:22 ?        00:00:00 [kworker/R-ttm]
+root         226       1  0 21:22 ?        00:00:00 /lib/systemd/systemd-udevd
+root         282       2  0 21:22 ?        00:00:00 [kworker/R-crypt]
+systemd+     316       1  0 21:22 ?        00:00:00 /lib/systemd/systemd-oomd
+systemd+     317       1  0 21:22 ?        00:00:00 /lib/systemd/systemd-resolve
+root         425       1  0 21:22 ?        00:00:00 /usr/libexec/accounts-daemon
+root         426       1  0 21:22 ?        00:00:00 /usr/sbin/acpid
+avahi        430       1  0 21:22 ?        00:00:00 avahi-daemon: running [ubunt
+root         431       1  0 21:22 ?        00:00:00 /usr/sbin/cron -f -P
+message+     433       1  0 21:22 ?        00:00:00 @dbus-daemon --system --addr
+root         436       1  0 21:22 ?        00:00:00 /usr/sbin/NetworkManager --n
+root         445       1  0 21:22 ?        00:00:00 /usr/bin/python3 /usr/bin/ne
+root         446       1  0 21:22 ?        00:00:00 /usr/libexec/polkitd --no-de
+root         447       1  0 21:22 ?        00:00:00 /usr/libexec/power-profiles-
+syslog       448       1  0 21:22 ?        00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         455       1  0 21:22 ?        00:00:00 /usr/libexec/switcheroo-cont
+root         459       1  0 21:22 ?        00:00:00 /lib/systemd/systemd-logind
+root         466       1  0 21:22 ?        00:00:00 /usr/libexec/udisks2/udisksd
+root         469       1  0 21:22 ?        00:00:00 /sbin/wpa_supplicant -u -s -
+avahi        479     430  0 21:22 ?        00:00:00 avahi-daemon: chroot helper
+root         517       1  0 21:22 ?        00:00:00 /usr/sbin/ModemManager
+root         525       1  0 21:22 ?        00:00:00 /usr/sbin/cupsd -l
+root         547       1  0 21:22 ?        00:00:00 /usr/bin/python3 /usr/share/
+lp           566     525  0 21:22 ?        00:00:00 /usr/lib/cups/notifier/dbus 
+root         639       1  0 21:22 ?        00:00:00 /usr/sbin/cups-browsed
+kernoops     651       1  0 21:22 ?        00:00:00 /usr/sbin/kerneloops --test
+kernoops     659       1  0 21:22 ?        00:00:00 /usr/sbin/kerneloops
+root        1619       1  0 21:22 ?        00:00:00 /usr/bin/VBoxDRMClient
+root        1622       1  0 21:22 ?        00:00:00 /usr/sbin/VBoxService --pidf
+root        1953       2  0 21:22 ?        00:00:00 [kworker/u3:1]
+root        2088       1  0 21:22 ?        00:00:00 /usr/sbin/gdm3
+root        2093    2088  0 21:22 ?        00:00:00 gdm-session-worker [pam/gdm-
+rajesh      2098       1  0 21:22 ?        00:00:00 /lib/systemd/systemd --user
+rajesh      2099    2098  0 21:22 ?        00:00:00 (sd-pam)
+rajesh      2105    2098  0 21:22 ?        00:00:00 /usr/bin/pipewire
+rajesh      2106    2098  0 21:22 ?        00:00:00 /usr/bin/pipewire-media-sess
+rajesh      2107    2098  0 21:22 ?        00:00:00 /usr/bin/pulseaudio --daemon
+rtkit       2115       1  0 21:22 ?        00:00:00 /usr/libexec/rtkit-daemon
+rajesh      2117       1  0 21:22 ?        00:00:00 /usr/bin/gnome-keyring-daemo
+rajesh      2129    2093  0 21:22 tty2     00:00:00 /usr/libexec/gdm-wayland-ses
+rajesh      2133    2098  0 21:22 ?        00:00:00 /usr/bin/dbus-daemon --sessi
+rajesh      2141    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfsd
+rajesh      2142    2129  0 21:22 tty2     00:00:00 /usr/libexec/gnome-session-b
+rajesh      2143    2098  0 21:22 ?        00:00:00 /usr/libexec/xdg-document-po
+rajesh      2153    2098  0 21:22 ?        00:00:00 /usr/libexec/xdg-permission-
+rajesh      2161    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfsd-fuse /run
+root        2164    2143  0 21:22 ?        00:00:00 fusermount3 -o rw,nosuid,nod
+rajesh      2213    2098  0 21:22 ?        00:00:00 /usr/libexec/tracker-miner-f
+rajesh      2216    2098  0 21:22 ?        00:00:00 /usr/libexec/gnome-session-c
+rajesh      2237    2098  0 21:22 ?        00:00:00 /usr/libexec/gnome-session-b
+rajesh      2256    2237  0 21:22 ?        00:00:00 /usr/libexec/at-spi-bus-laun
+rajesh      2257    2098  0 21:22 ?        00:00:12 /usr/bin/gnome-shell
+rajesh      2265    2256  0 21:22 ?        00:00:00 /usr/bin/dbus-daemon --confi
+rajesh      2266    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfs-udisks2-vo
+rajesh      2271    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfs-goa-volume
+rajesh      2275    2098  0 21:22 ?        00:00:00 /usr/libexec/goa-daemon
+rajesh      2297    2098  0 21:22 ?        00:00:00 /usr/libexec/goa-identity-se
+rajesh      2303    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfs-afc-volume
+rajesh      2308    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfs-mtp-volume
+rajesh      2314    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfs-gphoto2-vo
+root        2318       1  0 21:22 ?        00:00:00 /usr/libexec/upowerd
+rajesh      2365    2098  0 21:22 ?        00:00:00 /usr/libexec/gnome-shell-cal
+rajesh      2371    2098  0 21:22 ?        00:00:00 /usr/libexec/evolution-sourc
+rajesh      2380    2098  0 21:22 ?        00:00:00 /usr/libexec/evolution-calen
+root        2386       1  0 21:22 ?        00:00:00 /usr/libexec/packagekitd
+rajesh      2398    2098  0 21:22 ?        00:00:00 /usr/libexec/dconf-service
+rajesh      2399    2098  0 21:22 ?        00:00:00 /usr/libexec/evolution-addre
+rajesh      2404    2098  0 21:22 ?        00:00:00 /usr/libexec/gvfsd-metadata
+rajesh      2419    2141  0 21:22 ?        00:00:00 /usr/libexec/gvfsd-trash --s
+rajesh      2429    2098  0 21:22 ?        00:00:00 /usr/libexec/at-spi2-registr
+rajesh      2430    2098  0 21:22 ?        00:00:00 /usr/bin/gjs /usr/share/gnom
+rajesh      2439    2098  0 21:22 ?        00:00:00 sh -c /usr/bin/ibus-daemon -
+rajesh      2440    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-a11y-settin
+rajesh      2441    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-color
+rajesh      2445    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-datetime
+rajesh      2446    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-housekeepin
+rajesh      2447    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-keyboard
+rajesh      2448    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-media-keys
+rajesh      2449    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-power
+rajesh      2450    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-print-notif
+rajesh      2452    2439  0 21:22 ?        00:00:00 /usr/bin/ibus-daemon --panel
+rajesh      2453    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-rfkill
+rajesh      2454    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-screensaver
+rajesh      2455    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-sharing
+rajesh      2456    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-smartcard
+rajesh      2464    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-sound
+rajesh      2468    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-wacom
+rajesh      2528    2452  0 21:22 ?        00:00:00 /usr/libexec/ibus-dconf
+rajesh      2531    2452  0 21:22 ?        00:00:00 /usr/libexec/ibus-extension-
+rajesh      2534    2098  0 21:22 ?        00:00:00 /usr/libexec/ibus-portal
+rajesh      2542    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-printer
+rajesh      2547    2237  0 21:22 ?        00:00:00 /usr/libexec/gsd-disk-utilit
+rajesh      2552    2237  0 21:22 ?        00:00:00 /usr/libexec/evolution-data-
+rajesh      2580    2257  0 21:22 ?        00:00:00 /usr/bin/Xwayland :0 -rootle
+rajesh      2598    2452  0 21:22 ?        00:00:00 /usr/libexec/ibus-engine-sim
+rajesh      2683    2098  0 21:22 ?        00:00:00 /usr/libexec/xdg-desktop-por
+rajesh      2685    2098  0 21:22 ?        00:00:00 /usr/libexec/gsd-xsettings
+colord      2694       1  0 21:22 ?        00:00:00 /usr/libexec/colord
+rajesh      2697    2098  0 21:22 ?        00:00:00 /usr/libexec/xdg-desktop-por
+rajesh      2708    2098  0 21:22 ?        00:00:00 /usr/bin/gjs /usr/share/gnom
+rajesh      2769    2098  0 21:22 ?        00:00:00 /usr/libexec/ibus-x11
+rajesh      2773    2257  0 21:22 ?        00:00:00 gjs /usr/share/gnome-shell/e
+rajesh      2783    2098  0 21:22 ?        00:00:00 /usr/bin/VBoxClient --clipbo
+rajesh      2784    2783  0 21:22 ?        00:00:00 /usr/bin/VBoxClient --clipbo
+rajesh      2816    2098  0 21:22 ?        00:00:00 /usr/libexec/xdg-desktop-por
+rajesh      2818    2098  0 21:22 ?        00:00:00 /usr/bin/VBoxClient --vmsvga
+rajesh      2819    2818  0 21:22 ?        00:00:00 /usr/bin/VBoxClient --vmsvga
+rajesh      2889    2237  0 21:23 ?        00:00:00 update-notifier
+rajesh      3132    2098  0 21:24 ?        00:00:01 /usr/libexec/gnome-terminal-
+rajesh      3150    3132  0 21:24 pts/0    00:00:00 bash
+root        3759       2  0 21:32 ?        00:00:00 [kworker/0:0-events]
+root        3788       1  1 21:32 ?        00:00:08 /usr/lib/snapd/snapd
+root        4026       2  0 21:32 ?        00:00:00 [kworker/u2:4-events_unbound
+root        4029       2  0 21:32 ?        00:00:00 [kworker/u2:7-flush-8:0]
+rajesh      4893    2098  0 21:33 ?        00:00:00 /snap/snapd-desktop-integrat
+rajesh      5047    4893  0 21:33 ?        00:00:00 /snap/snapd-desktop-integrat
+root        5258       2  0 21:39 ?        00:00:00 [kworker/u2:0-events_unbound
+rajesh      5287    3150  0 21:44 pts/0    00:00:00 ps -ef
+
+
+5.)Create 3 files in dir1 and redirect ls output sorted by timestamp to a file
+
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ touch dir1/fileA dir1/fileB dir1/fileC
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ ls -lt dir1 > dir1/sorted_output.txt
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/Module_01$ cat dir1/sorted_output.txt
+total 4
+-rw-rw-r-- 1 rajesh rajesh    0 Jan 30 21:45 sorted_output.txt
+-rw-rw-r-- 1 rajesh rajesh    0 Jan 30 21:45 fileA
+-rw-rw-r-- 1 rajesh rajesh    0 Jan 30 21:45 fileB
+-rw-rw-r-- 1 rajesh rajesh    0 Jan 30 21:45 fileC
+lrwxrwxrwx 1 rajesh rajesh   15 Jan 30 21:43 file3_link -> dir1/dir2/file3
+drwxrwxr-x 2 rajesh rajesh 4096 Jan 30 21:42 dir2
