@@ -131,4 +131,81 @@ cat "$report"
 echo
 echo "Done. Report → $report"
 
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ ./backup_manager.sh ./test_source ./test_backup .txt
+
+Files found (3):
+-----------------------------
+      14  notes.txt
+      15  report-a.txt
+      14  todo.txt
+-----------------------------
+Total size: 43 bytes
+
+→ skipped notes.txt  (destination is same or newer)
+→ skipped report-a.txt  (destination is same or newer)
+→ skipped todo.txt  (destination is same or newer)
+BACKUP REPORT
+=============
+Date:            2026-02-09 09:43:58
+Source:          ./test_source
+Destination:     ./test_backup
+Extension:       .txt
+Files found:     3
+Files copied:    0
+Bytes copied:    0
+Exported var:    BACKUP_COUNT=0
+
+Report saved:    ./test_backup/backup_report.log
+
+Done. Report → ./test_backup/backup_report.log
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ ls
+backup_manager.sh  test_backup  test_source
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ cd test_backup/
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03/test_backup$ ls
+backup_report.log  notes.txt  report-a.txt  todo.txt
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03/test_backup$ cat backup_report.log 
+BACKUP REPORT
+=============
+Date:            2026-02-09 09:43:58
+Source:          ./test_source
+Destination:     ./test_backup
+Extension:       .txt
+Files found:     3
+Files copied:    0
+Bytes copied:    0
+Exported var:    BACKUP_COUNT=0
+
+Report saved:    ./test_backup/backup_report.log
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03/test_backup$ cd ..
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ echo "Updated at $(date)" >> test_source/notes.txt
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ touch -m test_source/notes.txt
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ ./backup_manager.sh ./test_source ./test_backup .txt
+
+Files found (3):
+-----------------------------
+      65  notes.txt
+      15  report-a.txt
+      14  todo.txt
+-----------------------------
+Total size: 94 bytes
+
+→ copied  notes.txt
+→ skipped report-a.txt  (destination is same or newer)
+→ skipped todo.txt  (destination is same or newer)
+BACKUP REPORT
+=============
+Date:            2026-02-09 09:46:12
+Source:          ./test_source
+Destination:     ./test_backup
+Extension:       .txt
+Files found:     3
+Files copied:    1
+Bytes copied:    65
+Exported var:    BACKUP_COUNT=1
+
+Report saved:    ./test_backup/backup_report.log
+
+Done. Report → ./test_backup/backup_report.log
+
+
 
