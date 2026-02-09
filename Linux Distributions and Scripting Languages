@@ -1,0 +1,134 @@
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_03$ cat backup_manager.sh 
+#!/usr/bin/env bash
+# =============================================================================
+# backup_manager.sh
+# Assessment Linux shell script - backup files with extension + conditional copy
+# =============================================================================
+
+#set -u    # treat unset variables as an error
+#set -e    # exit on most errors
+
+# ────────────────────────────────────────────────
+# 1. Check arguments
+# ────────────────────────────────────────────────
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 SOURCE_DIR BACKUP_DIR EXTENSION"
+    echo "Example:"
+    echo "   $0 \"./source\" \"./backup\" \".txt\""
+    exit 1
+fi
+
+SOURCE_DIR="$1"
+BACKUP_DIR="$2"
+EXTENSION="$3"
+
+# Add dot if user forgot it
+[[ $EXTENSION != .* ]] && EXTENSION=".$EXTENSION"
+
+# ────────────────────────────────────────────────
+# 2. Validate directories
+# ────────────────────────────────────────────────
+[ ! -d "$SOURCE_DIR" ] && { echo "Error: source directory not found"; exit 1; }
+[ ! -r "$SOURCE_DIR" ] && { echo "Error: source directory not readable"; exit 1; }
+
+if [ ! -d "$BACKUP_DIR" ]; then
+    mkdir -p "$BACKUP_DIR" || { echo "Error: cannot create $BACKUP_DIR"; exit 1; }
+    echo "Created backup directory: $BACKUP_DIR"
+fi
+
+[ ! -w "$BACKUP_DIR" ] && { echo "Error: backup directory not writable"; exit 1; }
+
+# ────────────────────────────────────────────────
+# 3. Collect files (globbing + array)
+# ────────────────────────────────────────────────
+shopt -s nullglob
+files=("$SOURCE_DIR"/*"$EXTENSION")
+
+if [ ${#files[@]} -eq 0 ]; then
+    echo "No *$EXTENSION files found in $SOURCE_DIR"
+    exit 0
+fi
+
+# ────────────────────────────────────────────────
+# 4. Show files before backup
+# ────────────────────────────────────────────────
+echo
+echo "Files found (${#files[@]}):"
+echo "-----------------------------"
+
+total_found_size=0
+
+for f in "${files[@]}"; do
+    [ -f "$f" ] || continue
+    size=$(stat -c '%s' "$f" 2>/dev/null || echo "unknown")
+    ((total_found_size += size))
+    printf "%8s  %s\n" "$size" "$(basename "$f")"
+done
+
+echo "-----------------------------"
+echo "Total size: $total_found_size bytes"
+echo
+
+# ────────────────────────────────────────────────
+# 5. Backup loop (only if newer or missing)
+# ────────────────────────────────────────────────
+backup_count=0
+backed_up_bytes=0
+
+for src in "${files[@]}"; do
+    [ -f "$src" ] || continue
+
+    fname=$(basename "$src")
+    dest="$BACKUP_DIR/$fname"
+
+    do_copy=false
+
+    if [ ! -f "$dest" ]; then
+        do_copy=true
+    else
+        src_mtime=$(stat -c %Y "$src"  2>/dev/null || echo 0)
+        dst_mtime=$(stat -c %Y "$dest" 2>/dev/null || echo 0)
+        (( src_mtime > dst_mtime )) && do_copy=true
+    fi
+
+    if $do_copy; then
+        if cp -p "$src" "$dest"; then
+            ((backup_count++))
+            size=$(stat -c '%s' "$src" 2>/dev/null || echo 0)
+            ((backed_up_bytes += size))
+            echo "→ copied  $fname"
+        else
+            echo "→ failed  $fname"
+        fi
+    else
+        echo "→ skipped $fname  (destination is same or newer)"
+    fi
+done
+
+# ────────────────────────────────────────────────
+# 6. Export + final report
+# ────────────────────────────────────────────────
+export BACKUP_COUNT=$backup_count
+
+report="$BACKUP_DIR/backup_report.log"
+
+{
+    echo "BACKUP REPORT"
+    echo "============="
+    echo "Date:            $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "Source:          $SOURCE_DIR"
+    echo "Destination:     $BACKUP_DIR"
+    echo "Extension:       $EXTENSION"
+    echo "Files found:     ${#files[@]}"
+    echo "Files copied:    $backup_count"
+    echo "Bytes copied:    $backed_up_bytes"
+    echo "Exported var:    BACKUP_COUNT=$BACKUP_COUNT"
+    echo
+    echo "Report saved:    $report"
+} > "$report"
+
+cat "$report"
+echo
+echo "Done. Report → $report"
+
+
