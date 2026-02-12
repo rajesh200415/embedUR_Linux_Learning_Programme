@@ -9,13 +9,11 @@ EXT="$3"
 
 if [ $# -ne 3 ]; then
     echo "Usage: $0 SOURCE_DIR BACKUP_DIR EXT"
-    exit 1
 fi
 
 # 2. Check source directory
 if [ ! -d "$SOURCE" ]; then
     echo "Source directory does not exist"
-    exit 1
 fi
 
 # 3. Create backup directory if not present
@@ -23,7 +21,6 @@ if [ ! -d "$BACKUP" ]; then
     mkdir "$BACKUP"
     if [ $? -ne 0 ]; then
         echo "Cannot create backup directory"
-        exit 1
     fi
 fi
 
@@ -33,7 +30,6 @@ files=( "$SOURCE"/*"$EXT" )
 # 5. If no files
 if [ ${#files[@]} -eq 0 ]; then
     echo "No matching files found"
-    exit 0
 fi
 
 # 6. Export count
