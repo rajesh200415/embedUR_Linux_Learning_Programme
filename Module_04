@@ -1,0 +1,77 @@
+ajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_04$ ls
+extract_script.sh  input.txt  output.txt  sample.txt
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_04$ cat extract_script.sh 
+#!/bin/bash
+
+INPUT_FILE="$1"
+OUTPUT_FILE="output.txt"
+
+# -------- File existence check --------
+if [[ ! -f "$INPUT_FILE" ]]; then
+    echo "Input file not found"
+    exit 1
+fi
+
+# -------- function--------
+extract_value() {
+    # extracts value between quotes after :
+    # input line -> "key": "value",
+    echo "$1" | sed -n 's/.*: *"\(.*\)".*/\1/p'
+}
+
+frame_time=""
+wlan_type=""
+wlan_subtype=""
+
+# -------- while loop--------
+while IFS= read -r line
+do
+
+    # -------- case statement--------
+    case "$line" in
+
+        *\"frame.time\"*)
+            frame_time=$(extract_value "$line")
+            ;;
+
+        *\"wlan.fc.type\"*)
+            wlan_type=$(extract_value "$line")
+            ;;
+
+        *\"wlan.fc.subtype\"*)
+            wlan_subtype=$(extract_value "$line")
+            ;;
+    esac
+
+
+    # -------- when all three are collected, write output --------
+    if [[ -n "$frame_time" && -n "$wlan_type" && -n "$wlan_subtype" ]]; then
+
+        {
+            echo "\"frame.time\": \"$frame_time\""
+            echo "\"wlan.fc.type\": \"$wlan_type\""
+            echo "\"wlan.fc.subtype\": \"$wlan_subtype\""
+        } >> "$OUTPUT_FILE"
+
+        echo "" >> "$OUTPUT_FILE"
+
+        # reset for next record
+        frame_time=""
+        wlan_type=""
+        wlan_subtype=""
+    fi
+
+done < "$INPUT_FILE"
+
+echo "Extraction completed. Output written to $OUTPUT_FILE"
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_04$ ./extract_script.sh input.txt
+Extraction completed. Output written to output.txt
+
+rajesh@ubuntu:~/Embedur_Linux_Learning_Programme/module_04$ head -n 5 output.txt 
+"frame.time": "Dec 31, 2024 12:50:25.890970000 India Standard Time"
+"wlan.fc.type": "0"
+"wlan.fc.subtype": "8"
+
+"frame.time": "Dec 31, 2024 12:50:25.892357000 India Standard Time"
+
